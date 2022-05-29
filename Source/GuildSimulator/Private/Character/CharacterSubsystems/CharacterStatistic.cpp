@@ -2,14 +2,17 @@
 
 
 #include "Character/CharacterSubsystems/CharacterStatistic.h"
+
+#include "Character/OverworldPlayerCharacter.h"
+#include "Character/RaidPlayerCharacter.h"
 #include "GameFramework/Character.h"
+#include "GameMisc/SingleClassCharStats.h"
+#include "GameMisc/Item/Item.h"
 
 // Sets default values for this component's properties
 UCharacterStatistic::UCharacterStatistic()
 {
-	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
-	// off to improve performance if you don't need them.
-	PrimaryComponentTick.bCanEverTick = true;
+//	PrimaryComponentTick.bCanEverTick = true;
 
 	//Character Properties
 	TotalHealthPoints = 255;
@@ -41,8 +44,16 @@ UCharacterStatistic::UCharacterStatistic()
 	SpellSpeed = 0;
 	SkillSpeed = 0;
 
-	//Set Pointers
-	ParentActor = GetOwner();
+	//Defense
+	PhysicalDefense = 0;
+	MagicalDefense = 0;
+	FrostResistance = 0;
+	FireResistance = 0;
+	WaterResistance = 0;
+	EarthResistance = 0;
+	LightResistance = 0;
+	DarkResistance = 0;
+	ArcaneResistance = 0;
 }
 
 void UCharacterStatistic::OnHitDamage(const ACharacter* GetEnemyRef, const DamageTypes DamageType, const bool IsCritical) {
@@ -242,15 +253,69 @@ bool UCharacterStatistic::IsCharacterDead() const
 	return false;
 }
 
+void UCharacterStatistic::EquipmentStats(const UItem* IncomingItem, const bool bIsRemoved)
+{
+	int Value = 1;
+	if(bIsRemoved)
+		Value = -1;
+	const USingleClassCharStats* CS = IncomingItem->CharStats;
+
+	//Health
+	TotalHealthPoints += Value * CS->IncreasedHealthPoints;
+	TotalManaPoints += Value * CS->IncreasedManaPoints;
+	
+	//Damage
+	BasePhysicalDamage += Value * CS->BasePhysicalDamage;
+	TotalFrostDamage += Value * CS->TotalFrostDamage;
+	TotalFireDamage += Value * CS->TotalFireDamage;
+	TotalEarthDamage += Value * CS->TotalEarthDamage;
+	TotalLightDamage += Value * CS->TotalLightDamage;
+	TotalDarkDamage += Value * CS->TotalDarkDamage;
+	TotalArcaneDamage += Value * CS->TotalArcaneDamage;
+	PhysicalDefense += Value * CS->PhysicalDefense;
+	MagicalDefense += Value * CS->MagicalDefense;
+	AttackPower += Value * CS->AttackPower;
+	MagicPower += Value * CS->MagicPower;
+	CriticalHitChance += Value * CS->CriticalHitChance;
+
+	//Abilities
+	SpellSpeed += Value * CS->SpellSpeed;
+	SkillSpeed += Value * CS->SkillSpeed;
+
+	//Defense
+	PhysicalDefense += Value * CS->PhysicalDefense;
+	MagicalDefense += Value * CS->MagicalDefense;
+	FrostResistance += Value * CS->FrostResistance;
+	FireResistance += Value * CS->FireResistance;
+	WaterResistance += Value * CS->WaterResistance;
+	EarthResistance += Value * CS->EarthResistance;
+	LightResistance += Value * CS->LightResistance;
+	DarkResistance += Value * CS->DarkResistance;
+	ArcaneResistance += Value * CS->ArcaneResistance;
+}
+
 void UCharacterStatistic::BeginPlay()
 {
 	Super::BeginPlay();
+
+	RaidPlayer = Cast<ARaidPlayerCharacter>(GetOwner());
+
+	// Get the owner.
+	if(!RaidPlayer->CharacterType)
+	{
+		RaidPlayer = nullptr;
+		PlayerChar == Cast<AOverworldPlayerCharacter>(GetOwner());
+		if(!PlayerChar->CharType)
+		{
+			PlayerChar = nullptr;
+			//TODO: Add NPC
+		}
+	}
 }
 
 
 // Called every frame
-void UCharacterStatistic::TickComponent(float DeltaTime, ELevelTick TickType,
-                                        FActorComponentTickFunction* ThisTickFunction)
+void UCharacterStatistic::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 	

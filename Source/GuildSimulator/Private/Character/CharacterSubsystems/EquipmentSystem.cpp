@@ -3,6 +3,7 @@
 
 #include "Character/CharacterSubsystems/EquipmentSystem.h"
 #include "Character/OverworldPlayerCharacter.h"
+#include "Character/CharacterSubsystems/CharacterStatistic.h"
 #include "Character/CharacterSubsystems/InventorySystem.h"
 #include "GameMisc/SingleClassCharStats.h"
 #include "Kismet/GameplayStatics.h"
@@ -46,6 +47,7 @@ void UEquipmentSystem::SetPlayerHelm(UItem* Item)
 	PlayerCharacter->GetInventorySystem()->RemoveItem(Item);
 	RemoveArmor(GetPlayerHelm());
 	PlayerHelm = Item;
+	PlayerCharacter->GetCharStats()->EquipmentStats(Item, false);
 }
 
 UItem* UEquipmentSystem::GetPlayerChest()
@@ -58,6 +60,7 @@ void UEquipmentSystem::SetPlayerChest(UItem* Item)
 	PlayerCharacter->GetInventorySystem()->RemoveItem(Item);
 	RemoveArmor(GetPlayerChest());
 	PlayerChest = Item;
+	PlayerCharacter->GetCharStats()->EquipmentStats(Item, false);
 }
 
 UItem* UEquipmentSystem::GetPlayerHands()
@@ -70,6 +73,7 @@ void UEquipmentSystem::SetPlayerHands(UItem* Item)
 	PlayerCharacter->GetInventorySystem()->RemoveItem(Item);
 	RemoveArmor(GetPlayerHands());
 	PlayerHands = Item;
+	PlayerCharacter->GetCharStats()->EquipmentStats(Item, false);
 }
 
 UItem* UEquipmentSystem::GetPlayerLeggings()
@@ -82,6 +86,7 @@ void UEquipmentSystem::SetPlayerLeggings(UItem* Item)
 	PlayerCharacter->GetInventorySystem()->RemoveItem(Item);
 	RemoveArmor(GetPlayerLeggings());
 	PlayerLeggings = Item;
+	PlayerCharacter->GetCharStats()->EquipmentStats(Item, false);
 }
 
 UItem* UEquipmentSystem::GetPlayerFeet()
@@ -94,6 +99,7 @@ void UEquipmentSystem::SetPlayerFeet(UItem* Item)
 	PlayerCharacter->GetInventorySystem()->RemoveItem(Item);
 	RemoveArmor(GetPlayerFeet());
 	PlayerFeet = Item;
+	PlayerCharacter->GetCharStats()->EquipmentStats(Item, false);
 }
 
 UItem* UEquipmentSystem::GetPlayerRing(const int32 Slot)
@@ -106,6 +112,7 @@ void UEquipmentSystem::SetPlayerRing(UItem* Item, const int32 Slot)
 	PlayerCharacter->GetInventorySystem()->RemoveItem(Item);
 	RemoveArmor(GetPlayerRing(Slot));
 	PlayerRing[Slot - 1] = Item;
+	PlayerCharacter->GetCharStats()->EquipmentStats(Item, false);
 }
 
 UItem* UEquipmentSystem::GetPlayerTrinket(const int32 Slot)
@@ -118,6 +125,7 @@ void UEquipmentSystem::SetPlayerTrinket(UItem* Item, int32 Slot)
 	PlayerCharacter->GetInventorySystem()->RemoveItem(Item);
 	RemoveArmor(GetPlayerTrinket(Slot));
 	PlayerTrinket[Slot - 1] = Item;
+	PlayerCharacter->GetCharStats()->EquipmentStats(Item, false);
 }
 
 UItem* UEquipmentSystem::GetPlayerWeapon()
@@ -130,6 +138,7 @@ void UEquipmentSystem::SetPlayerWeapon(UItem* Item)
 	PlayerCharacter->GetInventorySystem()->RemoveItem(Item);
 	RemoveArmor(GetPlayerWeapon());
 	PlayerWeapon = Item;
+	PlayerCharacter->GetCharStats()->EquipmentStats(Item, false);
 }
 
 UItem* UEquipmentSystem::GetPlayerOffHand()
@@ -142,6 +151,7 @@ void UEquipmentSystem::SetPlayerOffHand(UItem* Item)
 	PlayerCharacter->GetInventorySystem()->RemoveItem(Item);
 	RemoveArmor(GetPlayerOffHand());
 	PlayerOffHand = Item;
+	PlayerCharacter->GetCharStats()->EquipmentStats(Item, false);
 }
 
 TArray<UItem*>& UEquipmentSystem::GetPlayerConsumables()
@@ -177,11 +187,13 @@ bool UEquipmentSystem::RemoveItemFromConsumables(UItem* Item)
 bool UEquipmentSystem::RemoveArmor(const UItem* Item)
 {
 	UItem* Holder;
+	UCharacterStatistic* CharStats = PlayerCharacter->GetCharStats();
 	
 	if(Item == PlayerHelm)
 	{
 		Holder = PlayerHelm;
 		PlayerHelm = nullptr;
+		CharStats->EquipmentStats(Item, true);
 		PlayerCharacter->GetInventorySystem()->AddItem(Holder);
 		return true;
 	}
@@ -190,6 +202,7 @@ bool UEquipmentSystem::RemoveArmor(const UItem* Item)
 	{
 		Holder = PlayerChest;
 		PlayerChest = nullptr;
+		CharStats->EquipmentStats(Item, true);
 		PlayerCharacter->GetInventorySystem()->AddItem(Holder);
 		return true;
 	}
@@ -198,6 +211,7 @@ bool UEquipmentSystem::RemoveArmor(const UItem* Item)
 	{
 		Holder = PlayerHands;
 		PlayerHands = nullptr;
+		CharStats->EquipmentStats(Item, true);
 		PlayerCharacter->GetInventorySystem()->AddItem(Holder);
 		return true;
 	}
@@ -206,6 +220,7 @@ bool UEquipmentSystem::RemoveArmor(const UItem* Item)
 	{
 		Holder = PlayerLeggings;
 		PlayerLeggings = nullptr;
+		CharStats->EquipmentStats(Item, true);
 		PlayerCharacter->GetInventorySystem()->AddItem(Holder);
 		return true;
 	}
@@ -214,6 +229,7 @@ bool UEquipmentSystem::RemoveArmor(const UItem* Item)
 	{
 		Holder = PlayerFeet;
 		PlayerFeet = nullptr;
+		CharStats->EquipmentStats(Item, true);
 		PlayerCharacter->GetInventorySystem()->AddItem(Holder);
 		return true;
 	}
@@ -226,6 +242,7 @@ bool UEquipmentSystem::RemoveArmor(const UItem* Item)
 			{
 				Holder = PlayerRing[i];
 				PlayerRing[i] = nullptr;
+				CharStats->EquipmentStats(Item, true);
 				PlayerCharacter->GetInventorySystem()->AddItem(Holder);
 				return true;
 			}
@@ -240,6 +257,7 @@ bool UEquipmentSystem::RemoveArmor(const UItem* Item)
 			{
 				Holder = PlayerTrinket[i];
 				PlayerTrinket[i] = nullptr;
+				CharStats->EquipmentStats(Item, true);
 				PlayerCharacter->GetInventorySystem()->AddItem(Holder);
 				return true;
 			}
@@ -250,6 +268,7 @@ bool UEquipmentSystem::RemoveArmor(const UItem* Item)
 	{
 		Holder = PlayerWeapon;
 		PlayerWeapon = nullptr;
+		CharStats->EquipmentStats(Item, true);
 		PlayerCharacter->GetInventorySystem()->AddItem(Holder);
 		return true;
 	}
@@ -258,6 +277,7 @@ bool UEquipmentSystem::RemoveArmor(const UItem* Item)
 	{
 		Holder = PlayerOffHand;
 		PlayerOffHand = nullptr;
+		CharStats->EquipmentStats(Item, true);
 		PlayerCharacter->GetInventorySystem()->AddItem(Holder);
 		return true;
 	}

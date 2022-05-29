@@ -7,6 +7,10 @@
 #include "Components/ActorComponent.h"
 #include "CharacterStatistic.generated.h"
 
+class UItem;
+class ARaidPlayerCharacter;
+class AOverworldPlayerCharacter;
+
 UCLASS(ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
 class GUILDSIMULATOR_API UCharacterStatistic : public UActorComponent
 {
@@ -14,7 +18,12 @@ class GUILDSIMULATOR_API UCharacterStatistic : public UActorComponent
 
 	/* Parent actor of the component. */
 	UPROPERTY()
-	AActor* ParentActor;
+	ARaidPlayerCharacter* RaidPlayer;
+
+	UPROPERTY()
+	AOverworldPlayerCharacter* PlayerChar;
+
+	//TODO: Add NPCs
 public:
 	// Sets default values for this component's properties
 	UCharacterStatistic();
@@ -187,6 +196,13 @@ public:
 	/* Check to see if character is dead or not. */
 	bool IsCharacterDead() const;
 
+	/**
+	 * @brief Used for adding or removing stats from the character that the component is attached to.
+	 * @param IncomingItem - Used to get the stats from the items.
+	 * @param bIsRemoved - If true it will remove the stats from the character.
+	 */
+	void EquipmentStats(const UItem* IncomingItem, bool bIsRemoved);
+protected:
 	//protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;

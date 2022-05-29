@@ -82,6 +82,9 @@ UENUM(BlueprintType)
 enum CharacterType
 {
 	CT_NONE			UMETA(DisplayName = "None"),
+	CT_NPC			UMETA(DisplayName = "NPC"),
+	CT_OVERWORLD	UMETA(DisplayName = "Overworld Character"),
+	CT_RAIDCHAR		UMETA(DisplayName = "Raid Character"),
 	CT_ALLIANCE		UMETA(DisplayName = "Alliance"),
 	CT_ENEMY		UMETA(DisplayName = "Enemy"),
 	CT_ELITE		UMETA(DisplayName = "Elite"),

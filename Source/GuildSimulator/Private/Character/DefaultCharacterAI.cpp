@@ -71,6 +71,9 @@ ADefaultCharacterAI::ADefaultCharacterAI()
 		CursorMesh->SetStaticMesh(SelectedMesh.Object);
 		CursorMesh->SetVisibility(false);
 	}
+
+	//Set Defaults
+	CharacterType = CT_RAIDCHAR;
 }
 
 // Called when the game starts or when spawned

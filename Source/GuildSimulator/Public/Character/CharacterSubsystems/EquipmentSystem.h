@@ -56,7 +56,7 @@ public:
 
 	/**
 	 * @brief Returns the ring based on the slot that the player chooses.
-	 * @param Slot - The slot that will return. 1 - First Slot. 2 - Second Slot
+	 * @param Slot  The slot that will return. 1 - First Slot. 2 - Second Slot
 	 * @return Returns UItem of ring based on the slot.
 	 */
 	UFUNCTION(BlueprintCallable)
@@ -64,15 +64,15 @@ public:
 
 	/**
 	 * @brief This is meant to set the gear that the character has.
-	 * @param Item - Set the item that is going to be used for adding to the slot.
-	 * @param Slot - Slot that the ring will go into. 1 - First Slot. 2 - Second Slot.
+	 * @param Item  Set the item that is going to be used for adding to the slot.
+	 * @param Slot  Slot that the ring will go into. 1 - First Slot. 2 - Second Slot.
 	 */
 	UFUNCTION(BlueprintCallable)
 	void SetPlayerRing(UItem* Item, int32 Slot);
 
 	/**
 	 * @brief Returns the trinket based on the slot that the player chooses.
-	 * @param Slot - The slot that will return. 1 - First Slot. 2 - Second Slot
+	 * @param Slot  The slot that will return. 1 - First Slot. 2 - Second Slot
 	 * @return Returns UItem of Trinket based on the slot.
 	 */
 	UFUNCTION(BlueprintCallable)
@@ -80,8 +80,8 @@ public:
 
 	/**
 	 * @brief This is meant to set the gear that the character has.
-	 * @param Item - Set the item that is going to be used for adding to the slot.
-	 * @param Slot - Slot that the trinket will go into. 1 - First Slot. 2 - Second Slot.
+	 * @param Item  Set the item that is going to be used for adding to the slot.
+	 * @param Slot  Slot that the trinket will go into. 1 - First Slot. 2 - Second Slot.
 	 */
 	UFUNCTION(BlueprintCallable)
 	void SetPlayerTrinket(UItem* Item, int32 Slot);

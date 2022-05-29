@@ -4,6 +4,7 @@
 #include "Character/OverworldPlayerCharacter.h"
 #include "NiagaraComponent.h"
 #include "Camera/CameraComponent.h"
+#include "Character/CharacterSubsystems/CharacterStatistic.h"
 #include "Character/CharacterSubsystems/EquipmentSystem.h"
 #include "Character/CharacterSubsystems/InventorySystem.h"
 #include "Components/CapsuleComponent.h"
@@ -70,6 +71,10 @@ AOverworldPlayerCharacter::AOverworldPlayerCharacter()
 
 	//Set Defaults
 	PlayerName = FText::FromString("Enter Name...");
+	CharType = CT_OVERWORLD;
+	
+	//Set Character Stats
+	CharStats = CreateDefaultSubobject<UCharacterStatistic>(TEXT("CharStats"));
 }
 
 // Called when the game starts or when spawned
@@ -124,7 +129,7 @@ USceneComponent* AOverworldPlayerCharacter::GetSpawnPoint() const
 	return SpawnPoint;
 }
 
-//Returns the player inventory system.
+
 UInventorySystem* AOverworldPlayerCharacter::GetInventorySystem() const
 {
 	return Inventory;
@@ -133,4 +138,9 @@ UInventorySystem* AOverworldPlayerCharacter::GetInventorySystem() const
 UEquipmentSystem* AOverworldPlayerCharacter::GetPlayerEquipment() const
 {
 	return PlayerEquipment;
+}
+
+UCharacterStatistic* AOverworldPlayerCharacter::GetCharStats()
+{
+	return CharStats;
 }

@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "GameMisc/GuildSimEnums.h"
 #include "RaidPlayerCharacter.generated.h"
 
 class ADefaultCharacterAI;
@@ -20,6 +21,8 @@ public:
 	// Sets default values for this character's properties
 	ARaidPlayerCharacter();
 
+	TEnumAsByte<CharacterType> CharacterType;
+	
 	//The selected target.
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Raid System")
 	ADefaultCharacterAI* CurrentSelectedCharacter;
