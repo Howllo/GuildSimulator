@@ -304,7 +304,7 @@ void UCharacterStatistic::BeginPlay()
 	if(!RaidPlayer->CharacterType)
 	{
 		RaidPlayer = nullptr;
-		PlayerChar == Cast<AOverworldPlayerCharacter>(GetOwner());
+		PlayerChar = Cast<AOverworldPlayerCharacter>(GetOwner());
 		if(!PlayerChar->CharType)
 		{
 			PlayerChar = nullptr;

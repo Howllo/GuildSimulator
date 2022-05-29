@@ -25,58 +25,60 @@ void UItem::OnUse()
 {
 	const auto PlayerCharacter = Cast<AOverworldPlayerCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
 	
-	if(ItemType == IType_Armor || ItemType == IType_Weapon)
+	if(CharStats)
 	{
-		switch (CharStats->HandStyle)
+		if(CharStats->ArmorEnum != EAT_Ring || CharStats->ArmorEnum != EAT_Trinket){
+			if(ItemType == IType_Armor || ItemType == IType_Weapon)
+			{
+				switch (CharStats->HandStyle)
+				{
+				case EHT_One:
+					PlayerCharacter->GetPlayerEquipment()->SetPlayerWeapon(this);
+					break;
+				case EHT_Two:
+					PlayerCharacter->GetPlayerEquipment()->SetPlayerWeapon(this);
+					PlayerCharacter->GetPlayerEquipment()->SetPlayerOffHand(nullptr);
+					break;
+				case EHT_Off:
+					PlayerCharacter->GetPlayerEquipment()->SetPlayerOffHand(this);
+					break;
+				default:
+					break;
+				}
+			}
+
+			if(ItemType == IType_Armor)
+			{
+				switch (CharStats->ArmorEnum)
+				{
+				case EAT_Helm:
+					PlayerCharacter->GetPlayerEquipment()->SetPlayerHelm(this);
+					break;
+				case EAT_Chest:
+					PlayerCharacter->GetPlayerEquipment()->SetPlayerChest(this);
+					break;
+				case EAT_Hand:
+					PlayerCharacter->GetPlayerEquipment()->SetPlayerHands(this);
+					break;
+				case EAT_Legs:
+					PlayerCharacter->GetPlayerEquipment()->SetPlayerLeggings(this);
+					break;
+				case EAT_Feet:
+					PlayerCharacter->GetPlayerEquipment()->SetPlayerFeet(this);
+					break;
+				default:
+					break;
+				}
+			}
+		}
+		else
 		{
-			case EHT_One:
-				PlayerCharacter->GetPlayerEquipment()->SetPlayerWeapon(this);
-				break;
-			case EHT_Two:
-				PlayerCharacter->GetPlayerEquipment()->SetPlayerWeapon(this);
-				PlayerCharacter->GetPlayerEquipment()->SetPlayerOffHand(nullptr);
-				break;
-			case EHT_Off:
-				PlayerCharacter->GetPlayerEquipment()->SetPlayerOffHand(this);
-				break;
-			default:
-				break;
+			//TODO: Add On use for Trinket and ring of being able to select which place to place it. 
 		}
 	}
-
-	if(ItemType == IType_Armor)
+	
+	if(ConsumableScript)
 	{
-		switch (CharStats->ArmorEnum)
-		{
-			case EAT_Helm:
-				PlayerCharacter->GetPlayerEquipment()->SetPlayerHelm(this);
-				break;
-			case EAT_Chest:
-				PlayerCharacter->GetPlayerEquipment()->SetPlayerChest(this);
-				break;
-			case EAT_Hand:
-				PlayerCharacter->GetPlayerEquipment()->SetPlayerHands(this);
-				break;
-			case EAT_Legs:
-				PlayerCharacter->GetPlayerEquipment()->SetPlayerLeggings(this);
-				break;
-			case EAT_Feet:
-				PlayerCharacter->GetPlayerEquipment()->SetPlayerFeet(this);
-				break;
-			case EAT_Ring:
-				PlayerCharacter->GetPlayerEquipment()->SetPlayerRing(this,);
-				break;
-			case EAT_Trinket:
-				PlayerCharacter->GetPlayerEquipment()->SetPlayerTrinket(this,);
-				break;
-			default:
-				break;
-		}
-	}
-
-	if(ItemType == IType_Consumable)
-	{
-		
 	}
 }
 
