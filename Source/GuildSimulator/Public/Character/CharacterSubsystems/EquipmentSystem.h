@@ -116,11 +116,6 @@ public:
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
-
-//public:
-	// Called every frame
-//	virtual void TickComponent(float DeltaTime, ELevelTick TickType,
-//	                           FActorComponentTickFunction* ThisTickFunction) override;
 private:
 	UPROPERTY(EditDefaultsOnly ,Category=Equipment)
 	int32 ConsumableCapacity;
@@ -158,6 +153,7 @@ private:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category=Equipment, meta=(AllowPrivateAccess = "true"))
 	TArray<UItem*> PlayerConsumables;
 
+	UPROPERTY()
 	AOverworldPlayerCharacter* PlayerCharacter;
 };
 

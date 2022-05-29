@@ -98,64 +98,26 @@ void UEquipmentSystem::SetPlayerFeet(UItem* Item)
 
 UItem* UEquipmentSystem::GetPlayerRing(const int32 Slot)
 {
-	if( Slot == 0 )
-	{
-		return PlayerRing[Slot - 1];
-	}
-
-	if( Slot == 1 )
-	{
-		return PlayerRing[Slot - 1];
-	}
-	return nullptr;
+	return PlayerRing[Slot - 1];
 }
 
 void UEquipmentSystem::SetPlayerRing(UItem* Item, const int32 Slot)
 {
-	if( Slot == 1 )
-	{
-		PlayerCharacter->GetInventorySystem()->RemoveItem(Item);
-		RemoveArmor(GetPlayerRing(Slot));
-		PlayerRing[Slot - 1] = Item;
-	}
-
-	if( Slot == 2 )
-	{
-		PlayerCharacter->GetInventorySystem()->RemoveItem(Item);
-		RemoveArmor(GetPlayerRing(Slot));
-		PlayerRing[Slot - 1] = Item;
-	}
+	PlayerCharacter->GetInventorySystem()->RemoveItem(Item);
+	RemoveArmor(GetPlayerRing(Slot));
+	PlayerRing[Slot - 1] = Item;
 }
 
 UItem* UEquipmentSystem::GetPlayerTrinket(const int32 Slot)
 {
-	if( Slot == 1 )
-	{
-		return PlayerTrinket[Slot - 1];
-	}
-	
-	if( Slot == 2 )
-	{
-		return PlayerTrinket[Slot - 1];
-	}
-	return nullptr;
+	return PlayerTrinket[Slot - 1];
 }
 
 void UEquipmentSystem::SetPlayerTrinket(UItem* Item, int32 Slot)
 {
-	if( Slot == 1 )
-	{
-		PlayerCharacter->GetInventorySystem()->RemoveItem(Item);
-		RemoveArmor(GetPlayerTrinket(Slot));
-		PlayerTrinket[Slot - 1] = Item;
-	}
-
-	if( Slot == 2 )
-	{
-		PlayerCharacter->GetInventorySystem()->RemoveItem(Item);
-		RemoveArmor(GetPlayerTrinket(Slot));
-		PlayerTrinket[Slot - 1] = Item;
-	}
+	PlayerCharacter->GetInventorySystem()->RemoveItem(Item);
+	RemoveArmor(GetPlayerTrinket(Slot));
+	PlayerTrinket[Slot - 1] = Item;
 }
 
 UItem* UEquipmentSystem::GetPlayerWeapon()
@@ -214,7 +176,7 @@ bool UEquipmentSystem::RemoveItemFromConsumables(UItem* Item)
 
 bool UEquipmentSystem::RemoveArmor(const UItem* Item)
 {
-	UItem* Holder = nullptr;
+	UItem* Holder;
 	
 	if(Item == PlayerHelm)
 	{
@@ -309,5 +271,5 @@ void UEquipmentSystem::BeginPlay()
 	Super::BeginPlay();
 
 	// Get Player Character.
-	PlayerCharacter = Cast<AOverworldPlayerCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
+	PlayerCharacter = Cast<AOverworldPlayerCharacter>(GetOwner());
 }
