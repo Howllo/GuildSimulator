@@ -95,19 +95,19 @@ enum CharacterType
 /* All general character traits a player will get. */
 UENUM(BlueprintType)
 enum CharacterGeneralTraits {
-	CGT_NONE				UMETA(DisplayName = "No Traits"),
+	CGT_NONE			UMETA(DisplayName = "No Traits"),
 };
 
 /* All tank character traits a player will get. */
 UENUM(BlueprintType)
 enum CharacterTankTraits {
-	CTT_NONE				UMETA(DisplayName = "No Traits"),
+	CTT_NONE			UMETA(DisplayName = "No Traits"),
 };
 
 /* All damage character traits a player will get. */
 UENUM(BlueprintType)
 enum CharacterDamageTraits {
-	CDT_None				UMETA(DisplayName = "No Traits"),
+	CDT_None			UMETA(DisplayName = "No Traits"),
 };
 
 /* All healer character traits a player will get. */
@@ -139,11 +139,11 @@ enum ConsumableType
 UENUM(BlueprintType)
 enum GameRarity
 {
-	RItem_Common		UMETA(DisplayName = "Normal"),
-	RItem_Uncommon		UMETA(DisplayName = "Uncommon"),
-	RItem_Epic			UMETA(DisplayName = "Epic"),
-	RItem_Legendary		UMETA(DisplayName = "Legendary"),
-	RItem_Artifact		UMETA(DisplayName = "Artifact")
+	GRarity_Common		UMETA(DisplayName = "Normal"),
+	GRarity_Uncommon	UMETA(DisplayName = "Uncommon"),
+	GRarity_Epic		UMETA(DisplayName = "Epic"),
+	GRarity_Legendary	UMETA(DisplayName = "Legendary"),
+	GRarity_Artifact	UMETA(DisplayName = "Artifact")
 };
 
 UENUM(BlueprintType)
@@ -157,9 +157,9 @@ enum ItemStarCount
 UENUM(BlueprintType)
 enum ControllerScheme
 {
-	CScheme_KEY		UMETA(DisplayName = "Keyboard and Mouse"),
-	CScheme_CONT	UMETA(DisplayName = "Controller"),
-	CScheme_STEAM	UMETA(DisplayName = "Steam Controller"),
+	CScheme_KEY			UMETA(DisplayName = "Keyboard and Mouse"),
+	CScheme_CONT		UMETA(DisplayName = "Controller"),
+	CScheme_STEAM		UMETA(DisplayName = "Steam Controller"),
 };
 
 // What is the weapon?
@@ -188,7 +188,7 @@ enum EHandType
 	EHT_NONE	UMETA(DisplayName = "None"),
 	EHT_One		UMETA(DisplayName = "One-Handed"),
 	EHT_Two		UMETA(DisplayName = "Two-Handed"),
-	EHT_Off		UMETA(DispalyName = "Off-Handed")
+	EHT_Off		UMETA(DisplayName = "Off-Handed")
 };
 
 // Armor Type

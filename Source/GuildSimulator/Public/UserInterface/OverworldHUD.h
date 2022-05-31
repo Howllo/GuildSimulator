@@ -7,6 +7,7 @@
 #include "OverworldHUD.generated.h"
 
 class UOptionMenuWidget;
+class UItemPopup;
 
 /**
  *	Overworld HUD holds all the User Widgets for the character. Every Widget that will be used will
@@ -25,6 +26,9 @@ public:
 	 * @return UUI_InventorySystem Widget
 	 */
 	UOptionMenuWidget* GetOptionMenuWidget();
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	UItemPopup* Popup;
 protected:
 	virtual void BeginPlay() override;
 private:

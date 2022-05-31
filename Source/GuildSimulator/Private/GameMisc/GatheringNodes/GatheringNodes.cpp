@@ -1,10 +1,8 @@
 ﻿// Copyright (c) Astral Games. All right reserved.
 
-
 #include "GameMisc/GatheringNodes/GatheringNodes.h"
 #include "Character/OverworldPlayerCharacter.h"
 #include "Components/SphereComponent.h"
-
 
 // Sets default values
 AGatheringNodes::AGatheringNodes()
@@ -19,6 +17,9 @@ AGatheringNodes::AGatheringNodes()
 	CollisionSphere = CreateDefaultSubobject<USphereComponent>(TEXT("SphereCollider"));
 	CollisionSphere->OnComponentBeginOverlap.AddDynamic(this, &AGatheringNodes::OnOverlapBegin);
 	CollisionSphere->OnComponentEndOverlap.AddDynamic(this, &AGatheringNodes::OnOverlapEnd);
+
+	// Set Stuff
+	CurrentHitPoints = TotalHitPoints;
 }
 
 // Called when the game starts or when spawned
@@ -26,21 +27,23 @@ void AGatheringNodes::BeginPlay()
 {
 	Super::BeginPlay();
 	
-	switch (Rarity)
+	if(!bOverrideBaseStats)
 	{
-		case RItem_Common:
+		switch (Rarity)
+		{
+		case GRarity_Common:
 			TotalHitPoints = 30.f;
 			TotalRespawnTime = 300.f;
 			break;
-		case RItem_Uncommon:
+		case GRarity_Uncommon:
 			TotalHitPoints = 100.f;
 			TotalRespawnTime = 600.f;
 			break;
-		case RItem_Epic:
+		case GRarity_Epic:
 			TotalHitPoints = 700.f;
 			TotalRespawnTime = 1800.f;
 			break;
-		case  RItem_Legendary:
+		case  GRarity_Legendary:
 			TotalHitPoints = 2500.f;
 			TotalRespawnTime = 3600.f;
 			break;
@@ -48,6 +51,8 @@ void AGatheringNodes::BeginPlay()
 			TotalHitPoints = 30.f;
 			TotalRespawnTime = 300.f;
 			break;
+		}
+		CurrentHitPoints = TotalHitPoints;
 	}
 }
 

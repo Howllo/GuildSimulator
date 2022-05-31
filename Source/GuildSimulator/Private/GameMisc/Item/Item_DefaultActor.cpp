@@ -4,7 +4,6 @@
 #include "GameMisc/Item/Item_DefaultActor.h"
 #include "Character/OverworldPlayerCharacter.h"
 #include "Character/CharacterSubsystems/InventorySystem.h"
-#include "Components/BoxComponent.h"
 #include "Components/SphereComponent.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "GameMisc/SingleClassCharStats.h"
@@ -42,12 +41,12 @@ AItem_DefaultActor::AItem_DefaultActor()
 	CollisionSphere->SetCollisionProfileName(TEXT("Trigger"));
 	CollisionSphere->OnComponentBeginOverlap.AddDynamic(this, &AItem_DefaultActor::OnOverlapBegin);
 	CollisionSphere->OnComponentEndOverlap.AddDynamic(this, &AItem_DefaultActor::OnOverlapEnd);
-	
-	//Set Default State
-	ItemType = IType_NONE;
 
 	// Create a sub-object of item that can be replaced.
-	Item = CreateDefaultSubobject<UItem>(TEXT("Item"));
+	if(!Item)
+	{
+		Item = CreateDefaultSubobject<UItem>(TEXT("Item"));
+	}
 }
 
 // Called when the game starts or when spawned
@@ -69,18 +68,7 @@ void AItem_DefaultActor::BeginPlay()
 			GetMesh()->SetStaticMesh(Item->WorldMesh);
 			GetSkeletonMesh()->DestroyComponent();
 		}
-
-		if(Item->ItemType != IType_Weapon || Item->ItemType != IType_Armor)
-		{
-			Item->CharStats = nullptr;
-		}
-
-		if(Item->ItemType != IType_Consumable)
-		{
-			Item->ConsumableScript = nullptr;
-		}
 	}
-	
 	GetWorld()->GetTimerManager().SetTimer(TimerHandle, this, &AItem_DefaultActor::CleanUpObject,300.f, false);
 }
 
@@ -107,7 +95,7 @@ void AItem_DefaultActor::CleanUpObject()
 void AItem_DefaultActor::OnOverlapBegin(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
                                         UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	AOverworldPlayerCharacter* PlayerChar = Cast<AOverworldPlayerCharacter>(OtherActor);
+	const AOverworldPlayerCharacter* PlayerChar = Cast<AOverworldPlayerCharacter>(OtherActor);
 	if(PlayerChar)
 	{
 		if(Item)

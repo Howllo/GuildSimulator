@@ -14,7 +14,7 @@
 // Sets default values for this component's properties
 UInventorySystem::UInventorySystem()
 {
-	static ConstructorHelpers::FClassFinder<AItem_DefaultActor> ItemActor(TEXT("/Game/Blueprints/Items/BP_ItemActor"));
+	static ConstructorHelpers::FClassFinder<AItem_DefaultActor> ItemActor(TEXT("/Game/Blueprints/Items/BP_SpawnItemActor"));
 	if(ItemActor.Succeeded())
 	{
 		DefaultActor = ItemActor.Class;

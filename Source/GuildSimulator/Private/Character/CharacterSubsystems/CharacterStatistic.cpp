@@ -127,7 +127,7 @@ void UCharacterStatistic::OnHitDamage(const ACharacter* GetEnemyRef, const Damag
 					(EnemyStats->GetDamageTypeReturns(DT_ARCANE_DAMAGE) + ArcaneResistance);
 			break;
 		default:
-			CurrentHealthPoint = CurrentHealthPoint;
+			break;
 	}
 
 	if(IsCharacterDead())
@@ -253,8 +253,10 @@ bool UCharacterStatistic::IsCharacterDead() const
 	return false;
 }
 
-void UCharacterStatistic::EquipmentStats(const UItem* IncomingItem, const bool bIsRemoved)
+void UCharacterStatistic::AddEquipmentStats(const UItem* IncomingItem, const bool bIsRemoved)
 {
+	if(!IncomingItem) return;
+	
 	int Value = 1;
 	if(bIsRemoved)
 		Value = -1;
@@ -299,18 +301,7 @@ void UCharacterStatistic::BeginPlay()
 	Super::BeginPlay();
 
 	RaidPlayer = Cast<ARaidPlayerCharacter>(GetOwner());
-
-	// Get the owner.
-	if(!RaidPlayer->CharacterType)
-	{
-		RaidPlayer = nullptr;
-		PlayerChar = Cast<AOverworldPlayerCharacter>(GetOwner());
-		if(!PlayerChar->CharType)
-		{
-			PlayerChar = nullptr;
-			//TODO: Add NPC
-		}
-	}
+	PlayerChar = Cast<AOverworldPlayerCharacter>(GetOwner());
 }
 
 
@@ -320,4 +311,3 @@ void UCharacterStatistic::TickComponent(float DeltaTime, ELevelTick TickType, FA
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 	
 }
-

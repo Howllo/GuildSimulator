@@ -201,7 +201,7 @@ public:
 	 * @param IncomingItem - Used to get the stats from the items.
 	 * @param bIsRemoved - If true it will remove the stats from the character.
 	 */
-	void EquipmentStats(const UItem* IncomingItem, bool bIsRemoved);
+	void AddEquipmentStats(const UItem* IncomingItem, bool bIsRemoved);
 protected:
 	//protected:
 	// Called when the game starts

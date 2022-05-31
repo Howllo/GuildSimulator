@@ -4,7 +4,6 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "GameMisc/GuildSimEnums.h"
 #include "Item_DefaultActor.generated.h"
 
 class UItem;
@@ -12,9 +11,8 @@ class USphereComponent;
 class UBoxComponent;
 class UProjectileMovementComponent;
 
-/*
- *		ALL ITEMS ACTOR INHERIT FROM THIS CLASS.
- */
+
+ //	Base class to create all items for the game until a better system is created. 
 UCLASS()
 class GUILDSIMULATOR_API AItem_DefaultActor : public AActor
 {
@@ -22,9 +20,6 @@ class GUILDSIMULATOR_API AItem_DefaultActor : public AActor
 public:
 	// Sets default values for this actor's properties
 	AItem_DefaultActor();
-
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Item")
-	TEnumAsByte<ItemType> ItemType;
 	
 	// Returns the static mesh of the actor.
 	UFUNCTION(BlueprintCallable)
@@ -33,7 +28,6 @@ public:
 	// Return collision sphere information.
 	UFUNCTION(BlueprintCallable)
 	USphereComponent* GetSphereCollider() const;
-	
 	
 	// Returns a actor skeleton mesh, used for outfits only.
 	UFUNCTION(BlueprintCallable)

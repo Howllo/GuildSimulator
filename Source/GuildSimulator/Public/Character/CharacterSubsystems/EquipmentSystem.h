@@ -112,7 +112,7 @@ public:
 	 * @param Item - Send in the GetItem into the parameters to remove the item from the character.
 	 * @return Returns the the item object to be binds to a pointer item.
 	 */
-	bool RemoveArmor(const UItem* Item);
+	bool RemoveArmor(UItem* Item);
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;

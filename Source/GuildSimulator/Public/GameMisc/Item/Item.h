@@ -10,9 +10,7 @@ class UTexture2D;
 class USingleClassCharStats;
 class UConsumableScript;
 
-/**
- *		Item system for the entire game. Add on to the item system by creating new scripts.
- */
+// Item class deals with storing items information.
 UCLASS(BlueprintType, Blueprintable, EditInlineNew, DefaultToInstanced) //Abstract,
 class GUILDSIMULATOR_API UItem : public UObject
 {
@@ -28,6 +26,10 @@ public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category= "Required Information")
 	FText ItemName;
 
+	/* Used for random generation. */
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category= "Required Information")
+	int32 ItemLevel;
+	
 	/*Description Text for the item for the item.*/
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category= "Required Information")
 	FText ItemDescription;
@@ -133,5 +135,3 @@ private:
 	virtual void PostEditChangeProperty(FPropertyChangedEvent& PropertyChangedEvent) override;
 #endif
 };
-
-

@@ -21,17 +21,26 @@ public:
 	UPROPERTY(EditAnywhere, Category=Node, meta=(AllowPrivateAccess="true"))
 	USphereComponent* CollisionSphere;
 	
-	UPROPERTY(VisibleAnywhere, Category=Node)
+	UPROPERTY(EditDefaultsOnly, Category=Node)
 	int32 TotalHitPoints;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Node)
+	int32 CurrentHitPoints;
+	
 	UPROPERTY(EditAnywhere, Category=Node)
 	float TotalRespawnTime;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
 	TEnumAsByte<WeaponType> RequiredWeapon;
 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
+	TEnumAsByte<ItemQualityType> RequiredWeaponMat;
+	
 	UPROPERTY(EditDefaultsOnly)
 	TEnumAsByte<GameRarity> Rarity;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category=Node)
+	bool bOverrideBaseStats;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UStaticMeshComponent* StaticMeshComponent;
@@ -53,7 +62,6 @@ public:
 	void OnOverlapEnd(UPrimitiveComponent* OverlappedComp, AActor* OtherActor,
 		class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
 
-	
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

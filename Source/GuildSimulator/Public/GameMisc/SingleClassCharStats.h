@@ -15,21 +15,21 @@ class GUILDSIMULATOR_API USingleClassCharStats : public UObject
 {
 	GENERATED_BODY()
 public:
-	/* What type of weapon that the player is using. */
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Required")
-	TEnumAsByte<WeaponType> WeaponEnum;
-
-	// Is it one handed or two handed.
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Required")
-	TEnumAsByte<EHandType> HandStyle;
-	
-	/* Armor type. */
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Required")
-	TEnumAsByte<ArmorType> ArmorEnum;
-
 	// The quality of the weapon 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Required")
-	TEnumAsByte<ItemQualityType> WeaponQuality;
+	TEnumAsByte<ItemQualityType> ItemQuality;
+	
+	/* Armor type. */
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Required|Armor")
+	TEnumAsByte<ArmorType> ArmorEnum;
+
+	/* What type of weapon that the player is using. */
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Required|Weapon")
+	TEnumAsByte<WeaponType> WeaponEnum;
+	
+	// Is it one handed or two handed.
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Required|Weapon")
+	TEnumAsByte<EHandType> HandStyle;
 	
 	/* Set static mesh for it be exist in World. */
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="Armor")
@@ -151,4 +151,8 @@ public:
 	/* Arcane damage resistance. */
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Character Defense", meta=(ClampMin=0, ClampMax=300))
 	int32 ArcaneResistance;
+private:
+#if WITH_EDITOR
+	virtual void PostEditChangeProperty(FPropertyChangedEvent& PropertyChangedEvent) override;
+#endif
 };

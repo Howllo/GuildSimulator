@@ -1,9 +1,7 @@
 // Copyright (c) Astral Games. All right reserved.
 
 #include "GameMisc/OverworldPlayerController.h"
-
 #include <UserInterface/InventorySystem/ItemInformationBox.h>
-
 #include "NiagaraComponent.h"
 #include "GameFramework/Pawn.h"
 #include "NiagaraFunctionLibrary.h"
@@ -212,22 +210,27 @@ void AOverworldPlayerController::SetCharacterInputDisable(const float TotalTimeS
 
 void AOverworldPlayerController::OpenInventory()
 {
-	if(!OverworldHUD->GetOptionMenuWidget()->IsVisible())
+	UOptionMenuWidget* Options = OverworldHUD->GetOptionMenuWidget();
+	
+	if(!Options->IsVisible())
 	{
-		OverworldHUD->GetOptionMenuWidget()->SetVisibility(ESlateVisibility::Visible);
-		const AOverworldPlayerCharacter* CharacterPlayer = Cast<AOverworldPlayerCharacter>(GetPawn());
-		CharacterPlayer->GetCharacterMovement()->StopMovementImmediately();
+		Options->SetVisibility(ESlateVisibility::Visible);
+		PlayerChar->GetCharacterMovement()->StopMovementImmediately();
 	} else
 	{
-		if(OverworldHUD->GetOptionMenuWidget()->GetWidgetDrop())
+		if(Options->GetWidgetDrop())
 		{
-			OverworldHUD->GetOptionMenuWidget()->GetWidgetDrop()->RemoveFromParent();
+			Options->GetWidgetDrop()->RemoveFromParent();
 		}
-
-
 		
-		OverworldHUD->GetOptionMenuWidget()->SetVisibility(ESlateVisibility::Collapsed);
-		OverworldHUD->GetOptionMenuWidget()->GetInfoBox()->SetVisibility(ESlateVisibility::Collapsed);
+		if(OverworldHUD->Popup)
+		{
+			OverworldHUD->Popup->RemoveFromParent();
+			OverworldHUD->Popup = nullptr;
+		}
+		
+		Options->SetVisibility(ESlateVisibility::Collapsed);
+		Options->GetInfoBox()->SetVisibility(ESlateVisibility::Collapsed);
 		PlayerChar->GetInventorySystem()->SetSelectedSlot(nullptr);
 	}
 }

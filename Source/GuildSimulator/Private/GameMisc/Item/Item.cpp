@@ -12,7 +12,7 @@
 UItem::UItem()
 {
 	//Create the CharStats object.
-	CharStats = CreateDefaultSubobject<USingleClassCharStats>(TEXT("CharStats"));
+	CharStats = CreateDefaultSubobject<USingleClassCharStats>(TEXT("Statistics"));
 
 	//Create a CharConsumable Object
 	ConsumableScript = CreateDefaultSubobject<UConsumableScript>(TEXT("Consumable"));

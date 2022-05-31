@@ -2,6 +2,7 @@
 
 #include "UserInterface/InventorySystem/InventorySlot.h"
 #include "Character/OverworldPlayerCharacter.h"
+#include "Components/Button.h"
 #include "Components/HorizontalBox.h"
 #include "Components/Image.h"
 #include "Components/SizeBox.h"
@@ -31,32 +32,13 @@ UInventorySlot::UInventorySlot(const FObjectInitializer& ObjectInitializer) :Sup
 void UInventorySlot::OnSlotClicked()
 {
 	if(!MainItem) return;
-	
-	bSelected = true;
+
 	AOverworldHUD* HUD = Cast<AOverworldHUD>(UGameplayStatics::GetPlayerController(this,0)->GetHUD());
 	const AOverworldPlayerCharacter* PlayerCharacter = Cast<AOverworldPlayerCharacter>(UGameplayStatics::GetPlayerPawn(GetWorld(), 0));
 	const AOverworldPlayerController* PlayerController = Cast<AOverworldPlayerController>(UGameplayStatics::GetPlayerController(GetWorld(), 0));
 	UInventorySlot* SelectedSlot = PlayerCharacter->GetInventorySystem()->GetSelectedSlot();
 	UItemInformationBox* ResultsInfoBox = HUD->GetOptionMenuWidget()->GetInfoBox();
-	
-	// Popup Widget Creation.
-	PopupWidget();
 
-	// Set Popup Buttons
-	ChangePopupButtons();
-	
-	if(!PopupInfo->IsInViewport())
-		bIsActive = false;
-	
-	// Set Popup
-	if(!bIsActive)
-	{
-		float PosX, PosY;
-		PlayerController->GetMousePosition(PosX, PosY);
-		PopupInfo->SetPositionInViewport(FVector2D(PosX, PosY));
-		bIsActive = true;
-	}
-	
 	// Start of Selection
 	if(SelectedSlot != nullptr)
 	{
@@ -67,13 +49,15 @@ void UInventorySlot::OnSlotClicked()
 		}
 	}
 	
-	if(bSelected)
+	if(!bSelected)
 	{
 		PlayerCharacter->GetInventorySystem()->SetSelectedSlot(this);
 		BackgroundRarity->SetBrushFromTexture(MainItem->BackgroundRaritySelected);
+		bSelected = true;
 	}
 	// End of Selection
-	
+
+	// Set Result Info Box
 	ResultsInfoBox->ButtonHorizontalBox->SetVisibility(ESlateVisibility::Collapsed);
 	ResultsInfoBox->VerticalBox->SetVisibility(ESlateVisibility::Collapsed);
 	ResultsInfoBox->ItemDescription->SetVisibility(ESlateVisibility::Visible);
@@ -271,6 +255,28 @@ void UInventorySlot::OnSlotClicked()
 	}
 
 	//TODO: Add Consumable.
+	// End of Result Box
+
+	// Popup Widget Creation.
+	PopupWidget();
+
+	// Set Popup Buttons
+	ChangePopupButtons();
+	
+	if(!PopupInfo->IsInViewport())
+		bIsActive = false;
+	
+	// Set Popup
+	if(!bIsActive)
+	{
+		float PosX, PosY;
+		PlayerController->GetMousePosition(PosX, PosY);
+		PopupInfo->SetPositionInViewport(FVector2D(PosX, PosY));
+		bIsActive = true;
+	}
+	// End of Widget creation
+
+	HUD->Popup = PopupInfo;
 }
 
 void UInventorySlot::SetSlot()
@@ -369,5 +375,11 @@ void UInventorySlot::ChangePopupButtons() const
 		PopupInfo->UseText->SetText(TextUse);
 		PopupInfo->UseText->SetVisibility(ESlateVisibility::Collapsed);
 	}
+
+	PopupInfo->SlotOne->SetVisibility(ESlateVisibility::Collapsed);
+	PopupInfo->SlotTwo->SetVisibility(ESlateVisibility::Collapsed);
+	PopupInfo->ItemDrop->SetVisibility(ESlateVisibility::Visible);
+	PopupInfo->ItemCancel->SetVisibility(ESlateVisibility::Visible);
+	
 }
 #undef LOCTEXT_NAMESPACE
