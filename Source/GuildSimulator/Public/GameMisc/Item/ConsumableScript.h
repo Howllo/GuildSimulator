@@ -18,7 +18,7 @@ public:
 	UConsumableScript();
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Consumables")
-	TEnumAsByte<ConsumableType> ConsumeType;
+	TEnumAsByte<EConsumableType> ConsumeType;
 	
 	/* Total HP added. */
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="Consumables", meta=(ClampMin=0))

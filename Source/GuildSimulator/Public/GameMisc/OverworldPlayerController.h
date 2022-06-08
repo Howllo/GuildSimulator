@@ -39,7 +39,7 @@ public:
 	FORCEINLINE void SetCooldownDashTimer(float SetTimer) { CooldownDashTimer = SetTimer; }
 	FORCEINLINE float GetCooldownDashTimer() const { return CooldownDashTimer; }
 	FORCEINLINE void SetOverworldChar(AOverworldPlayerCharacter* Char) { PlayerChar = Char; }
-	FORCEINLINE ControllerScheme GetControllerScheme() const { return ControllerScheme; }
+	FORCEINLINE EControllerScheme GetControllerScheme() const { return ControllerScheme; }
 protected:
 	/** True if the controlled character should navigate to the mouse cursor. */
 	uint32 bMoveToMouseCursor : 1;
@@ -73,7 +73,7 @@ protected:
 	void OpenInventory();
 private:
 	//Controller Scheme
-	ControllerScheme ControllerScheme;
+	EControllerScheme ControllerScheme;
 	
 	//Casted to version of GetHUD.
 	UPROPERTY()

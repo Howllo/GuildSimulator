@@ -11,11 +11,13 @@
 #pragma region Class
 class UItem;
 class AItem_DefaultActor;
-class UOptionMenuWidget;
+class UInventoryUI;
 class UUniformGridPanel;
 class UInventorySlot;
 class AOverworldHUD;
 #pragma endregion
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FInventorySlotUpdate, TEnumAsByte<EItemType>, Type);
 
 /**
  * Inventory System component deals with adding and removing, and handles the inventory items. This will also
@@ -26,9 +28,11 @@ class GUILDSIMULATOR_API UInventorySystem : public UActorComponent
 {
 	GENERATED_BODY()
 public:
-
 	// Sets default values for this component's properties
 	UInventorySystem();
+
+	UPROPERTY(BlueprintAssignable)
+	FInventorySlotUpdate InventorySlotUpdate;
 	
 	/**
 	 * @brief Takes in a outfit item to store it in a OutfitArray. Used for display and to use items for characters.
@@ -65,7 +69,7 @@ public:
 	 * @brief Update the inventory UI slots.
 	 * @param Type Takes in a ItemType enum to determine what inventory slots to update.
 	 */
-	void UpdateInventory(const ItemType Type);
+	void UpdateInventory(const EItemType Type);
 
 	/**
 	 * @brief The point of the function is to set the individual slots in the TMap.
@@ -73,13 +77,13 @@ public:
 	 * @param Capacity Sets the location slot of the map to capacity. This only set one slot.
 	 */
 	UFUNCTION(BlueprintCallable)
-	void SetCapacity(ItemType Type, const int32 Capacity);
+	void SetCapacity(EItemType Type, const int32 Capacity);
 
 	/**
 	 * @brief Used to check if the capacity has been reach in any of the inventory slots.
 	 * @return Return the capacity as a TMap.
 	 */
-	TMap<ItemType, int32>& GetCapacity(); // Warning this cannot be UFUNCTION
+	TMap<EItemType, int32>& GetCapacity(); // Warning this cannot be UFUNCTION
 
 	/**
 	 * @brief Returns the current selected slot.
@@ -111,10 +115,10 @@ private:
 	UInventorySlot* SelectedSlot;
 
 	// Inventory Capacity per ItemType
-	TMap<ItemType, int32> InventoryCapacity;
+	TMap<EItemType, int32> InventoryCapacity;
 	
 	// Keeps track of the total amount of inventory slot per enum.
-	TMap<ItemType, int32> TotalItems;
+	TMap<EItemType, int32> TotalItems;
 	
 	/* Check to see if a one of the inventory is cur/rently full. */ 
 	void CheckIfInventoryIsFull();

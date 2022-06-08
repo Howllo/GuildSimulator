@@ -4,13 +4,13 @@
 #include "UserInterface/OverworldHUD.h"
 #include "Kismet/GameplayStatics.h"
 #include "UserInterface/InventorySystem/ItemInformationBox.h"
-#include "UserInterface/InventorySystem/OptionMenuWidget.h"
+#include "UserInterface/InventorySystem/InventoryUI.h"
 #include "Components/UniformGridPanel.h"
 
 AOverworldHUD::AOverworldHUD()
 {
 	//Inventory Inventory UI
-	static ConstructorHelpers::FClassFinder<UOptionMenuWidget> Inventory_UI(TEXT("/Game/Blueprints/UserInterface/Inventory/WBP_InventorySystem"));
+	static ConstructorHelpers::FClassFinder<UInventoryUI> Inventory_UI(TEXT("/Game/Blueprints/UserInterface/Inventory/WBP_InventorySystem"));
 	if(Inventory_UI.Succeeded())
 	{
 		BP_Inventory = Inventory_UI.Class;
@@ -24,7 +24,7 @@ void AOverworldHUD::BeginPlay()
 	//Setup OptionMenuWidget
 	if(BP_Inventory)
 	{
-		OptionMenuWidget = CreateWidget<UOptionMenuWidget>(UGameplayStatics::GetPlayerController(GetWorld(),
+		OptionMenuWidget = CreateWidget<UInventoryUI>(UGameplayStatics::GetPlayerController(GetWorld(),
 			0), BP_Inventory);
 		if(OptionMenuWidget)
 		{
@@ -47,7 +47,7 @@ void AOverworldHUD::BeginPlay()
 	}
 }
 
-UOptionMenuWidget* AOverworldHUD::GetOptionMenuWidget()
+UInventoryUI* AOverworldHUD::GetOptionMenuWidget()
 {
 	return OptionMenuWidget;
 }

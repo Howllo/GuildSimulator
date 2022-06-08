@@ -6,8 +6,9 @@
 #include "Character/CharacterSubsystems/InventorySystem.h"
 #include "Components/SphereComponent.h"
 #include "GameFramework/ProjectileMovementComponent.h"
-#include "GameMisc/SingleClassCharStats.h"
 #include "GameMisc/Item/Item.h"
+#include "GameMisc/GuildSimEnums.h"
+#include "GameMisc/SingleClassCharStats.h"
 
 // Sets default values
 AItem_DefaultActor::AItem_DefaultActor()
@@ -70,6 +71,18 @@ void AItem_DefaultActor::BeginPlay()
 		}
 	}
 	GetWorld()->GetTimerManager().SetTimer(TimerHandle, this, &AItem_DefaultActor::CleanUpObject,300.f, false);
+
+
+	USingleClassCharStats* Stats = Item->ItemStats;
+	// Remove all zero char stats.
+	for(int32 i = ECT_NONE; i != ECT_Last; i++)
+	{
+		const ECharacterStats CharacterEnum = static_cast<ECharacterStats>(i);
+		if(Stats->CharacterStatsMap.Find(CharacterEnum) == nullptr)
+		{
+			Stats->CharacterStatsMap.Remove(CharacterEnum);
+		}
+	}
 }
 
 UStaticMeshComponent* AItem_DefaultActor::GetMesh() const

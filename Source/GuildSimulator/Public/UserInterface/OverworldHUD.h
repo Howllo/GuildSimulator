@@ -6,7 +6,7 @@
 #include "GameFramework/HUD.h"
 #include "OverworldHUD.generated.h"
 
-class UOptionMenuWidget;
+class UInventoryUI;
 class UItemPopup;
 
 /**
@@ -25,7 +25,7 @@ public:
 	 * @brief 
 	 * @return UUI_InventorySystem Widget
 	 */
-	UOptionMenuWidget* GetOptionMenuWidget();
+	UInventoryUI* GetOptionMenuWidget();
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	UItemPopup* Popup;
@@ -34,7 +34,7 @@ protected:
 private:
 	/* Pointer the primarily Option Menu Widget. */ 
 	UPROPERTY(EditDefaultsOnly)
-	UOptionMenuWidget* OptionMenuWidget;
+	UInventoryUI* OptionMenuWidget;
 	
 	/* Inventory UI blueprint. */ 
 	UPROPERTY(EditDefaultsOnly)

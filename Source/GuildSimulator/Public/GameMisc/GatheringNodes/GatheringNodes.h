@@ -31,13 +31,13 @@ public:
 	float TotalRespawnTime;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
-	TEnumAsByte<WeaponType> RequiredWeapon;
+	TEnumAsByte<EWeaponType> RequiredWeapon;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
-	TEnumAsByte<ItemQualityType> RequiredWeaponMat;
+	TEnumAsByte<EItemQualityType> RequiredWeaponMat;
 	
 	UPROPERTY(EditDefaultsOnly)
-	TEnumAsByte<GameRarity> Rarity;
+	TEnumAsByte<EGameRarity> Rarity;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category=Node)
 	bool bOverrideBaseStats;

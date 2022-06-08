@@ -1,6 +1,6 @@
 // Copyright (c) Astral Games. All right reserved.
 
-#include "UserInterface/InventorySystem/OptionMenuWidget.h"
+#include "UserInterface/InventorySystem/InventoryUI.h"
 #include "UserInterface/InventorySystem/WidgetDrop.h"
 #include "Character/OverworldPlayerCharacter.h"
 #include "Components/Button.h"
@@ -11,7 +11,7 @@
 #include "UserInterface/InventorySystem/NoItem.h"
 #include "UserInterface/InventorySystem/ItemInformationBox.h"
 
-UOptionMenuWidget::UOptionMenuWidget(const FObjectInitializer& ObjectInitializer) :Super(ObjectInitializer)
+UInventoryUI::UInventoryUI(const FObjectInitializer& ObjectInitializer) :Super(ObjectInitializer)
 {
 	static ConstructorHelpers::FClassFinder<UInventorySlot> InvSlot(TEXT("/Game/Blueprints/UserInterface/Inventory/WBP_InventorySlot"));
 	if(InvSlot.Succeeded())
@@ -34,72 +34,72 @@ UOptionMenuWidget::UOptionMenuWidget(const FObjectInitializer& ObjectInitializer
 	}
 }
 
-UUniformGridPanel* UOptionMenuWidget::GetMaterialGridPanel()
+UUniformGridPanel* UInventoryUI::GetMaterialGridPanel()
 {
 	return MatInventoryGrid;
 }
 
-UUniformGridPanel* UOptionMenuWidget::GetConsumableGridPanel()
+UUniformGridPanel* UInventoryUI::GetConsumableGridPanel()
 {
 	return ConInventoryGrid;
 }
 
-UUniformGridPanel* UOptionMenuWidget::GetArmorGridPanel()
+UUniformGridPanel* UInventoryUI::GetArmorGridPanel()
 {
 	return ArmorInventoryGrid;
 }
 
-UUniformGridPanel* UOptionMenuWidget::GetWeaponGridPanel()
+UUniformGridPanel* UInventoryUI::GetWeaponGridPanel()
 {
 	return WeaponInventoryGrid;
 }
 
-UUniformGridPanel* UOptionMenuWidget::GetOutfitGridPanel()
+UUniformGridPanel* UInventoryUI::GetOutfitGridPanel()
 {
 	return OutfitInventoryGrid;
 }
 
-UUniformGridPanel* UOptionMenuWidget::GetCraftedGridPanel()
+UUniformGridPanel* UInventoryUI::GetCraftedGridPanel()
 {
 	return CraftedInventoryGrid;
 }
 
-UItemInformationBox* UOptionMenuWidget::GetInfoBox()
+UItemInformationBox* UInventoryUI::GetInfoBox()
 {
 	return InformationBox;
 }
 
-void UOptionMenuWidget::OnMaterialTab()
+void UInventoryUI::OnMaterialTab()
 {
 	ButtonSetup(MaterialTab, MatInventoryGrid);
 }
 
-void UOptionMenuWidget::OnConsumableTab()
+void UInventoryUI::OnConsumableTab()
 {
 	ButtonSetup(ConsumableTab, ConInventoryGrid);
 }
 
-void UOptionMenuWidget::OnArmorTab()
+void UInventoryUI::OnArmorTab()
 {
 	ButtonSetup(ArmorTab, ArmorInventoryGrid);
 }
 
-void UOptionMenuWidget::OnWeaponTab()
+void UInventoryUI::OnWeaponTab()
 {
 	ButtonSetup(WeaponTab, WeaponInventoryGrid);
 }
 
-void UOptionMenuWidget::OnOutfitTab()
+void UInventoryUI::OnOutfitTab()
 {
 	ButtonSetup(OutfitTab, OutfitInventoryGrid);
 }
 
-void UOptionMenuWidget::OnCraftedTab()
+void UInventoryUI::OnCraftedTab()
 {
 	ButtonSetup(CraftedTab, CraftedInventoryGrid);
 }
 
-void UOptionMenuWidget::ButtonSetup(UButton* NewLastButton, UUniformGridPanel* NewPanel)
+void UInventoryUI::ButtonSetup(UButton* NewLastButton, UUniformGridPanel* NewPanel)
 {
 	if(!NewLastButton || !NewPanel) return;
 	
@@ -125,7 +125,7 @@ void UOptionMenuWidget::ButtonSetup(UButton* NewLastButton, UUniformGridPanel* N
 	InformationBox->SetVisibility(ESlateVisibility::Collapsed);
 }
 
-void UOptionMenuWidget::UpdateInventorySlots(TArray<UItem*>& Items, ItemType Type) const
+void UInventoryUI::UpdateInventorySlots(TArray<UItem*>& Items, EItemType Type) const
 {
 	TArray<UWidget*> Child;
 	int Row = 0, Col = 0;
@@ -319,12 +319,12 @@ void UOptionMenuWidget::UpdateInventorySlots(TArray<UItem*>& Items, ItemType Typ
 	}
 }
 
-UWidgetDrop* UOptionMenuWidget::GetWidgetDrop()
+UWidgetDrop* UInventoryUI::GetWidgetDrop()
 {
 	return WidgetDrop;
 }
 
-void UOptionMenuWidget::DropAction()
+void UInventoryUI::DropAction()
 {
 	if(!WidgetDrop)
 	{

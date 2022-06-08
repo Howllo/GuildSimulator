@@ -12,7 +12,7 @@
 UItem::UItem()
 {
 	//Create the CharStats object.
-	CharStats = CreateDefaultSubobject<USingleClassCharStats>(TEXT("Statistics"));
+	ItemStats = CreateDefaultSubobject<USingleClassCharStats>(TEXT("Statistics"));
 
 	//Create a CharConsumable Object
 	ConsumableScript = CreateDefaultSubobject<UConsumableScript>(TEXT("Consumable"));
@@ -25,12 +25,12 @@ void UItem::OnUse()
 {
 	const auto PlayerCharacter = Cast<AOverworldPlayerCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
 	
-	if(CharStats)
+	if(ItemStats)
 	{
-		if(CharStats->ArmorEnum != EAT_Ring || CharStats->ArmorEnum != EAT_Trinket){
+		if(ItemStats->ArmorEnum != EAT_Ring || ItemStats->ArmorEnum != EAT_Trinket){
 			if(ItemType == IType_Armor || ItemType == IType_Weapon)
 			{
-				switch (CharStats->HandStyle)
+				switch (ItemStats->HandStyle)
 				{
 				case EHT_One:
 					PlayerCharacter->GetPlayerEquipment()->SetPlayerWeapon(this);
@@ -49,7 +49,7 @@ void UItem::OnUse()
 
 			if(ItemType == IType_Armor)
 			{
-				switch (CharStats->ArmorEnum)
+				switch (ItemStats->ArmorEnum)
 				{
 				case EAT_Helm:
 					PlayerCharacter->GetPlayerEquipment()->SetPlayerHelm(this);

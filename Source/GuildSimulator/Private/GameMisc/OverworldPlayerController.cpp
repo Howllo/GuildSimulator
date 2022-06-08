@@ -15,7 +15,7 @@
 #include "UserInterface/OverworldHUD.h"
 #include "UserInterface/InventorySystem/InventorySlot.h"
 #include "UserInterface/InventorySystem/ItemPopup.h"
-#include "UserInterface/InventorySystem/OptionMenuWidget.h"
+#include "UserInterface/InventorySystem/InventoryUI.h"
 #include "UserInterface/InventorySystem/WidgetDrop.h"
 
 //TODO: Detect the input.
@@ -210,7 +210,7 @@ void AOverworldPlayerController::SetCharacterInputDisable(const float TotalTimeS
 
 void AOverworldPlayerController::OpenInventory()
 {
-	UOptionMenuWidget* Options = OverworldHUD->GetOptionMenuWidget();
+	UInventoryUI* Options = OverworldHUD->GetOptionMenuWidget();
 	
 	if(!Options->IsVisible())
 	{

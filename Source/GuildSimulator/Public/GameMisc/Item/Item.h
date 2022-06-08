@@ -54,7 +54,7 @@ public:
 	*		- Crafted:		Anything that cna be placed in the world.
 	*/
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Required Information")
-	TEnumAsByte<ItemType> ItemType;
+	TEnumAsByte<EItemType> ItemType;
 
 	/**
 	*		- One:		Boosted properties by 1x.
@@ -62,7 +62,7 @@ public:
 	*		- Three:	Boosted properties by 3x.
 	*/
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Required Information")
-	TEnumAsByte<ItemStarCount> StarCount;
+	TEnumAsByte<EItemStarCount> StarCount;
 	
 	/**
 	*		- Normal:		Normal is lowest rarity, popups all the time.
@@ -72,7 +72,7 @@ public:
 	*		- Artifact:		One item in all the game.
 	*/
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Required Information")
-	TEnumAsByte<GameRarity> ItemRarity;
+	TEnumAsByte<EGameRarity> ItemRarity;
 	
 	/* Display icon in inventory system..*/
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category= "Required Information")
@@ -118,7 +118,7 @@ public:
 
 	// Character Stats for Armor and Weapons.
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="Character Scripts (Double Click)")
-	USingleClassCharStats* CharStats;
+	USingleClassCharStats* ItemStats;
 
 	// Consumable script deals with on use.
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Character Scripts (Double Click)")

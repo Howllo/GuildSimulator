@@ -8,7 +8,7 @@
 #include "GameMisc/GuildSimEnums.h"
 #include "GameMisc/SingleClassCharStats.h"
 #include "Kismet/GameplayStatics.h"
-#include "UserInterface/InventorySystem/OptionMenuWidget.h"
+#include "UserInterface/InventorySystem/InventoryUI.h"
 #include "UserInterface/OverworldHUD.h"
 
 // Sets default values for this component's properties
@@ -18,6 +18,11 @@ UInventorySystem::UInventorySystem()
 	if(ItemActor.Succeeded())
 	{
 		DefaultActor = ItemActor.Class;
+	}
+
+	for(int32 i = 0; i < StartingItems.Num(); i++)
+	{
+		AddItem(StartingItems[i]);
 	}
 }
 
@@ -61,7 +66,7 @@ bool UInventorySystem::AddItem(UItem* Item)
 					{
 						InventoryArray[i]->Quantity += Item->Quantity;
 						Item->Quantity = 0;
-						UpdateInventory(Item->ItemType);
+						InventorySlotUpdate.Broadcast(Item->ItemType);
 						return true;
 					}
 				
@@ -70,7 +75,7 @@ bool UInventorySystem::AddItem(UItem* Item)
 						const int32 Difference = InventoryArray[i]->TotalQuantityPerStack - InventoryArray[i]->Quantity;
 						InventoryArray[i]->Quantity += Difference;
 						Item->Quantity -= Difference;
-						UpdateInventory(Item->ItemType);
+						InventorySlotUpdate.Broadcast(Item->ItemType);
 						bLeftOver = true;
 					}
 				}
@@ -153,7 +158,7 @@ void UInventorySystem::DropItem(UItem* Item, const int32 Amount)
 	GetWorld()->GetTimerManager().SetTimer(TimerHandle, TimerDelegate, 0.5f, false);
 }
 
-void UInventorySystem::UpdateInventory(const ItemType Type)
+void UInventorySystem::UpdateInventory(const EItemType Type)
 {
 	if(Type == IType_NONE) return;
 	
@@ -223,12 +228,12 @@ void UInventorySystem::SetBoolPlayerInventory(bool SetPlayerB)
 	bIsPlayerInventory = SetPlayerB;
 }
 
-void UInventorySystem::SetCapacity(const ItemType Type, const int32 Capacity)
+void UInventorySystem::SetCapacity(const EItemType Type, const int32 Capacity)
 {
 	InventoryCapacity[Type] = Capacity;
 }
 
-TMap<ItemType, int32>& UInventorySystem::GetCapacity() 
+TMap<EItemType, int32>& UInventorySystem::GetCapacity() 
 {
 	return InventoryCapacity;
 }

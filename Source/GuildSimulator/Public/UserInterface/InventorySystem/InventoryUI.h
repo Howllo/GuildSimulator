@@ -7,7 +7,7 @@
 #include "Character/CharacterSubsystems/InventorySystem.h"
 #include "GameMisc/GuildSimEnums.h"
 #include "Kismet/GameplayStatics.h"
-#include "OptionMenuWidget.generated.h"
+#include "InventoryUI.generated.h"
 
 class UButton;
 class UScrollBox;
@@ -22,11 +22,11 @@ class UCanvasPanel;
  * 
  */
 UCLASS()
-class GUILDSIMULATOR_API UOptionMenuWidget : public UUserWidget
+class GUILDSIMULATOR_API UInventoryUI : public UUserWidget
 {
 	GENERATED_BODY()
 public:
-	UOptionMenuWidget(const FObjectInitializer& ObjectInitializer);
+	UInventoryUI(const FObjectInitializer& ObjectInitializer);
 
 	/**
 	 * @brief Returns material grid panel.
@@ -158,6 +158,8 @@ private:
 	UWidgetDrop* WidgetDrop;
 public:
 	//Delegates
+	UPROPERTY(BlueprintAssignable)
+	FInventorySlotUpdate InventorySlotUpdate;
 	
 	// OnClick button for the material tab.
 	UFUNCTION(BlueprintCallable)
@@ -190,7 +192,8 @@ public:
 	 * @param Items Array that is based by const reference and based on T.
 	 * @param Type ItemType enum.
 	 */
-	void UpdateInventorySlots(TArray<UItem*>& Items, ItemType Type) const;
+	UFUNCTION()
+	void UpdateInventorySlots(TArray<UItem*>& Items, EItemType Type) const;
 
 	/**
 	 * @brief Just returns widget of WidgetDrop.

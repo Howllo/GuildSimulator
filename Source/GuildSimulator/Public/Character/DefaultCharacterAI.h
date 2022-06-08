@@ -31,7 +31,7 @@ protected:
 	FText Unit_Name;
 
 	//UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="Character Information")
-	TEnumAsByte<CharacterType> CharacterType;
+	TEnumAsByte<ECharacterType> CharacterType;
 	
 	/* Current target for the character. */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Combat System")
@@ -72,7 +72,7 @@ protected:
 	 *		- Sage:				A magical range healer.
 	 */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Character Information")
-	TEnumAsByte<CharacterClass> CharacterClass;
+	TEnumAsByte<ECharacterClass> CharacterClass;
 
 	/**
 	 *		- Tank:			Passive: Tanks have automatically increased health, defense, and threat generation.
@@ -80,7 +80,7 @@ protected:
 	 *		- Healer:		Passive: Healers have increased health and mana regeneration.
 	 */
 	 UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Character Information")
-	TEnumAsByte<ClassSpecialization> ClassRole;
+	TEnumAsByte<EClassSpecialization> ClassRole;
 
 	/**
 	*		- NONE:				This state is just nothing at all. This bypasses most other states.
@@ -93,7 +93,7 @@ protected:
 	*		- CANNOT BE DMG:	If character cannot be damage this will be the state.
 	*/
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Character Information")
-	TEnumAsByte<CurrentCharacterStates> CharacterStateOne;
+	TEnumAsByte<ECurrentCharacterStates> CharacterStateOne;
 
 	/**
 	*		- NONE:				This state is just nothing at all. This bypasses most other states.
@@ -106,22 +106,22 @@ protected:
 	*		- CANNOT BE DMG:	If character cannot be damage this will be the state.
 	*/
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Character Information")
-	TEnumAsByte<CurrentCharacterStates> CharacterStateTwo;
+	TEnumAsByte<ECurrentCharacterStates> CharacterStateTwo;
 	 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Character Information")
-	TEnumAsByte<CharacterGeneralTraits> FirstGeneralTrait;
+	TEnumAsByte<ECharacterGeneralTraits> FirstGeneralTrait;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Character Information")
-	TEnumAsByte<CharacterGeneralTraits> SecondGeneralTrait;
+	TEnumAsByte<ECharacterGeneralTraits> SecondGeneralTrait;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Character Information")
-	TEnumAsByte<CharacterTankTraits> TankTrait;
+	TEnumAsByte<ECharacterTankTraits> TankTrait;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Character Information")
-	TEnumAsByte<CharacterDamageTraits> DamageTrait;
+	TEnumAsByte<ECharacterDamageTraits> DamageTrait;
 	
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Character Information")
-	TEnumAsByte<CharacterHealerTraits> HealerTrait;
+	TEnumAsByte<ECharacterHealerTraits> HealerTrait;
 
 	//Equipment Slots
 	

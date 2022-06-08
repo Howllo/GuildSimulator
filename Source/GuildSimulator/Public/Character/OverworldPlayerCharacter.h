@@ -27,7 +27,7 @@ public:
 	// Sets default values for this character's properties
 	AOverworldPlayerCharacter();
 
-	TEnumAsByte<CharacterType> CharType;
+	TEnumAsByte<ECharacterType> CharType;
 	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
 	UNiagaraComponent* ParticleComponent;

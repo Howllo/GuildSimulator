@@ -12,7 +12,7 @@
 #include "UserInterface/OverworldHUD.h"
 #include "UserInterface/InventorySystem/InventorySlot.h"
 #include "UserInterface/InventorySystem/ItemInformationBox.h"
-#include "UserInterface/InventorySystem/OptionMenuWidget.h"
+#include "UserInterface/InventorySystem/InventoryUI.h"
 
 #define LOCTEXT_NAMESPACE "SlotText"
 void UItemPopup::ButtonCalledUse()
@@ -29,9 +29,9 @@ void UItemPopup::ButtonCalledUse()
 	const FText TrinketSlotOneText = NSLOCTEXT("SlotText", "TrinketSlotOne", "Trinket Slot 1");
 	const FText TrinketSlotTwoText = NSLOCTEXT("SlotText", "TrinketSlotTwo", "Trinket Slot 2");
 	
-	if(Item->CharStats)
+	if(Item->ItemStats)
 	{
-		if(Item->CharStats->ArmorEnum == EAT_Ring)
+		if(Item->ItemStats->ArmorEnum == EAT_Ring)
 		{
 			SlotOneText->SetText(RingSlotOneText);
 			SlotTwoText->SetText(RingSlotTwoText);
@@ -80,7 +80,7 @@ void UItemPopup::ButtonCalledSlotOne()
 	AOverworldHUD* HUD = Cast<AOverworldHUD>(UGameplayStatics::GetPlayerController(GetWorld(), 0)->GetHUD());
 	UItemInformationBox* ResultsInfoBox = HUD->GetOptionMenuWidget()->GetInfoBox();
 	
-	if(Item->CharStats->ArmorEnum == EAT_Ring)
+	if(Item->ItemStats->ArmorEnum == EAT_Ring)
 	{
 		PlayerCharacter->GetPlayerEquipment()->SetPlayerRing(Item, 1);
 		ResultsInfoBox->SetVisibility(ESlateVisibility::Collapsed);
@@ -88,7 +88,7 @@ void UItemPopup::ButtonCalledSlotOne()
 		return;
 	}
 
-	if(Item->CharStats->ArmorEnum == EAT_Trinket)
+	if(Item->ItemStats->ArmorEnum == EAT_Trinket)
 	{
 		PlayerCharacter->GetPlayerEquipment()->SetPlayerTrinket(Item, 1);
 		ResultsInfoBox->SetVisibility(ESlateVisibility::Collapsed);
@@ -104,7 +104,7 @@ void UItemPopup::ButtonCalledSlotTwo()
 	AOverworldHUD* HUD = Cast<AOverworldHUD>(UGameplayStatics::GetPlayerController(GetWorld(), 0)->GetHUD());
 	UItemInformationBox* ResultsInfoBox = HUD->GetOptionMenuWidget()->GetInfoBox();
 	
-	if(Item->CharStats->ArmorEnum == EAT_Ring)
+	if(Item->ItemStats->ArmorEnum == EAT_Ring)
 	{
 		PlayerCharacter->GetPlayerEquipment()->SetPlayerRing(Item, 2);
 		ResultsInfoBox->SetVisibility(ESlateVisibility::Collapsed);
@@ -112,7 +112,7 @@ void UItemPopup::ButtonCalledSlotTwo()
 		return;
 	}
 
-	if(Item->CharStats->ArmorEnum == EAT_Trinket)
+	if(Item->ItemStats->ArmorEnum == EAT_Trinket)
 	{
 		PlayerCharacter->GetPlayerEquipment()->SetPlayerTrinket(Item, 2);
 		ResultsInfoBox->SetVisibility(ESlateVisibility::Collapsed);

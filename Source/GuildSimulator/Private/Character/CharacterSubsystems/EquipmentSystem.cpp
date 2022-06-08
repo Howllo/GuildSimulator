@@ -236,7 +236,7 @@ bool UEquipmentSystem::RemoveArmor(UItem* Item)
 		return true;
 	}
 
-	if(Item->CharStats->ArmorEnum == EAT_Ring)
+	if(Item->ItemStats->ArmorEnum == EAT_Ring)
 	{
 		for(int32 i = 0; i < PlayerRing.Num(); i++)
 		{
@@ -251,7 +251,7 @@ bool UEquipmentSystem::RemoveArmor(UItem* Item)
 		}
 	}
 
-	if(Item->CharStats->ArmorEnum == EAT_Trinket)
+	if(Item->ItemStats->ArmorEnum == EAT_Trinket)
 	{
 		for(int32 i = 0; i < PlayerTrinket.Num(); i++)
 		{

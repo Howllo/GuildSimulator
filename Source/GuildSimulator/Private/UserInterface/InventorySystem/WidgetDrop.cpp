@@ -8,7 +8,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "UserInterface/OverworldHUD.h"
 #include "UserInterface/InventorySystem/InventorySlot.h"
-#include "UserInterface/InventorySystem/OptionMenuWidget.h"
+#include "UserInterface/InventorySystem/InventoryUI.h"
 
 UWidgetDrop::UWidgetDrop(const FObjectInitializer& ObjectInitializer) :Super(ObjectInitializer)
 {
